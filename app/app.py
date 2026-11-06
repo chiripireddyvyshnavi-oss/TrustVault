@@ -84,6 +84,12 @@ def register():
         conn = get_db()
 
         try:
+            user_count = conn.execute(
+                "SELECT COUNT(*) FROM users"
+            ).fetchone()[0]
+
+            role = "owner" if user_count == 0 else "viewer"
+
             conn.execute(
                 """
                 INSERT INTO users
@@ -94,7 +100,7 @@ def register():
                     name,
                     email,
                     generate_password_hash(password),
-                    "viewer"
+                    role
                 )
             )
 
