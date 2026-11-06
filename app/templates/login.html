@@ -1,0 +1,43 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Snovasys Login</title>
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<div class="auth-container">
+
+    <h2>Welcome to Snovasys</h2>
+    <h3>Login to Your Account</h3>
+
+    {% with messages = get_flashed_messages() %}
+        {% for message in messages %}
+            <p>{{ message }}</p>
+        {% endfor %}
+    {% endwith %}
+
+    <form method="POST" action="{{ url_for('login') }}">
+
+        <label>Email</label>
+        <input type="email" name="email"
+               placeholder="Enter Email" required>
+
+        <label>Password</label>
+        <input type="password" name="password"
+               placeholder="Enter Password" required>
+
+        <button type="submit">Login</button>
+
+    </form>
+
+    <p>Don't have an account?
+       <a href="{{ url_for('register') }}">Register here</a>
+    </p>
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,53 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Registered Users - Snovasys</title>
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+    <div class="container">
+        <h1>Registered Users</h1>
+
+        <p>Total Registered Users: {{ users|length }}</p>
+
+        <table border="1" cellpadding="10"
+               cellspacing="0" width="100%">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Role</th>
+                    <th>Registered Date</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                {% for user in users %}
+                <tr>
+                    <td>{{ user.id }}</td>
+                    <td>{{ user.name }}</td>
+                    <td>{{ user.email }}</td>
+                    <td>{{ user.role }}</td>
+                    <td>{{ user.created_at }}</td>
+                </tr>
+                {% else %}
+                <tr>
+                    <td colspan="5">No registered users found.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <br>
+
+        <a href="{{ url_for('dashboard') }}">
+            Back to Dashboard
+        </a>
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,87 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>TrustVault Dashboard</title>
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+    <header>
+        <h1>TrustVault Dashboard</h1>
+    </header>
+
+    <div class="container">
+
+        <div class="card">
+
+            <h2>Welcome, {{ name }}!</h2>
+
+            <p>Your login was successful.</p>
+
+            <p>
+                <strong>Your Role:</strong> {{ role }}
+            </p>
+
+            <hr>
+
+            <h3>Dashboard Overview</h3>
+
+            <p>Manage your documents securely using TrustVault.</p>
+
+            <br>
+
+            <h3>Document Management</h3>
+
+            <a href="{{ url_for('upload') }}">
+                Upload Documents
+            </a>
+
+            <br><br>
+
+            <a href="{{ url_for('documents') }}">
+                My Documents
+            </a>
+
+            <br><br>
+
+            <a href="{{ url_for('viewers') }}">
+                Shared Documents
+            </a>
+
+            <br><br>
+
+            <a href="{{ url_for('share') }}">
+                Share Documents
+            </a>
+
+            <hr>
+
+            <h3>User Management</h3>
+
+            <a href="{{ url_for('users') }}">
+                View Registered Users
+            </a>
+
+            <hr>
+
+            <h3>Activity Management</h3>
+
+            <a href="{{ url_for('audit_logs') }}">
+                Activity History
+            </a>
+
+            <br><br>
+
+            <a class="logout" href="{{ url_for('logout') }}">
+                Logout
+            </a>
+
+        </div>
+
+    </div>
+
+</body>
+</html>

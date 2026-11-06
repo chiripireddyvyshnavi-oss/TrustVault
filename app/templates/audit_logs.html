@@ -1,0 +1,46 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>TrustVault - Activity History</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <h1>TrustVault</h1>
+    <h2>Activity History</h2>
+
+    {% if logs %}
+    <table border="1" cellpadding="10">
+        <tr>
+            <th>ID</th>
+            <th>User</th>
+            <th>Action</th>
+            <th>Document ID</th>
+            <th>Target User</th>
+            <th>Details</th>
+            <th>Date</th>
+        </tr>
+
+        {% for log in logs %}
+        <tr>
+            <td>{{ log.id }}</td>
+            <td>{{ log.actor_name or 'Unknown' }}</td>
+            <td>{{ log.action }}</td>
+            <td>{{ log.document_id or '-' }}</td>
+            <td>{{ log.target_name or '-' }}</td>
+            <td>{{ log.details or '-' }}</td>
+            <td>{{ log.created_at }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+    {% else %}
+        <p>No activity recorded yet.</p>
+    {% endif %}
+
+    <br>
+    <a href="{{ url_for('dashboard') }}">Back to Dashboard</a>
+    <br><br>
+    <a href="{{ url_for('logout') }}">Logout</a>
+
+</body>
+</html>

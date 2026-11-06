@@ -1,0 +1,49 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>TrustVault - My Documents</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <h1>TrustVault</h1>
+    <h2>Uploaded Documents</h2>
+
+    <a href="{{ url_for('upload') }}">Upload New Document</a>
+
+    <hr>
+
+    {% if documents %}
+        <table border="1" cellpadding="10">
+            <tr>
+                <th>ID</th>
+                <th>Filename</th>
+                <th>Category</th>
+                <th>Owner</th>
+                <th>Download</th>
+            </tr>
+
+            {% for doc in documents %}
+            <tr>
+                <td>{{ doc.id }}</td>
+                <td>{{ doc.filename }}</td>
+                <td>{{ doc.category }}</td>
+                <td>{{ doc.owner_name }}</td>
+                <td>
+                    <a href="{{ url_for('download', document_id=doc.id) }}">
+                        Download
+                    </a>
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+    {% else %}
+        <p>No documents uploaded yet.</p>
+    {% endif %}
+
+    <br>
+    <a href="{{ url_for('dashboard') }}">Back to Dashboard</a>
+    <br><br>
+    <a href="{{ url_for('logout') }}">Logout</a>
+</body>
+</html>

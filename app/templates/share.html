@@ -1,0 +1,118 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>TrustVault - Share Documents</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+    <header>
+        <h1>TrustVault</h1>
+        <p>Secure Document Sharing</p>
+    </header>
+
+    <div class="container">
+
+        <div class="card">
+
+            <h2>Share Your Documents</h2>
+
+            {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                    {% for message in messages %}
+                        <p class="message">{{ message }}</p>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+
+            {% if documents and users %}
+
+                <form method="POST" action="{{ url_for('share') }}">
+
+                    <label for="document_id">Select Document:</label>
+
+                    <select name="document_id" id="document_id" required>
+                        <option value="">Choose Document</option>
+
+                        {% for doc in documents %}
+                            <option value="{{ doc.id }}">
+                                {{ doc.filename }}
+                            </option>
+                        {% endfor %}
+
+                    </select>
+
+                    <br><br>
+
+                    <label for="user_id">Select User:</label>
+
+                    <select name="user_id" id="user_id" required>
+                        <option value="">Choose User</option>
+
+                        {% for user in users %}
+                            <option value="{{ user.id }}">
+                                {{ user.name }} ({{ user.email }})
+                            </option>
+                        {% endfor %}
+
+                    </select>
+
+                    <br><br>
+
+                    <label for="permission">Select Permission:</label>
+
+                    <select name="permission" id="permission" required>
+                        <option value="read">Read Only</option>
+                        <option value="edit">Edit</option>
+                    </select>
+
+                    <br><br>
+
+                    <button type="submit">Share Document</button>
+
+                </form>
+
+            {% elif not documents %}
+
+                <p>You have not uploaded any documents yet.</p>
+
+                <a href="{{ url_for('upload') }}">Upload Document</a>
+
+            {% else %}
+
+                <p>No other registered users available.</p>
+
+                <a href="{{ url_for('users') }}">View Registered Users</a>
+
+            {% endif %}
+
+        </div>
+
+        <div class="navigation">
+
+            <a href="{{ url_for('dashboard') }}">Back to Dashboard</a>
+
+            <br><br>
+
+            <a href="{{ url_for('documents') }}">My Documents</a>
+
+            <br><br>
+
+            <a href="{{ url_for('viewers') }}">Shared Documents</a>
+
+            <br><br>
+
+            <a href="{{ url_for('logout') }}">Logout</a>
+
+        </div>
+
+    </div>
+
+</body>
+</html>
